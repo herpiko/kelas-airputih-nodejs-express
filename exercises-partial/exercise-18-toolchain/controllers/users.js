@@ -5,7 +5,8 @@ exports.add = function(req, res, next) {
         title: "Add a user",
         docreate: true,
         userId: "",
-        user: undefined
+        user: undefined,
+        session : req.session,
     });
 }
 

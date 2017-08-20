@@ -5,7 +5,8 @@ exports.add = function(req, res, next) {
         title: "Add a user",
         docreate: true,
         userId: "",
-        user: undefined
+        user: undefined,
+        session : req.session,
     });
 }
 
@@ -98,6 +99,12 @@ exports.dologin = function(req, res, next) {
   usersModel.list({ username : req.body.username, password : req.body.password}, function(err, user){
     if (err) return res.send(err);
     if (!user || (user && user.length < 1)) return res.render('login', { title : 'Login', session: req.session });
+    console.log(req.headers);
+    if (req.headers['token']) {
+      return usersModel.read(user[0]._id, function(err, currentUser){
+        return res.send({loggedIn : true, currentUser : currentUser});
+      });
+    }
     req.session.authenticated = true;
     res.redirect('/');
   });
