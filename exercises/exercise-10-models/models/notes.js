@@ -1,4 +1,4 @@
-ar mongoose = require('mongoose'); // panggil modul mongoose
+var mongoose = require('mongoose'); // panggil modul mongoose
 var noteSchema = mongoose.Schema({  // Buat skema koleksi
   title : String,
   body : String,
